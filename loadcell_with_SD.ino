@@ -66,11 +66,11 @@ void setup() {
   Serial.println("Cartão SD inicializado com sucesso");
 
   // Abre o arquivo
-  dataFile = SD.open("dados.txt", FILE_WRITE);
+  dataFile = SD.open("loadcell_data.txt", FILE_WRITE);
 
   if (!dataFile) {
     Serial.println("Erro ao abrir o arquivo");
-    dataFile = SD.open("dados.txt", FILE_WRITE);
+    dataFile = SD.open("loadcell_data.txt", FILE_WRITE);
     while (!dataFile);              // Aguarda caso haja erro
   }
 
