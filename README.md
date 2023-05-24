@@ -31,4 +31,5 @@
  2. calibration_factor = average of values in the serial monitor / known weight on the load cell.
 */
 
-Please note that the original code has been translated to English without altering the formatting.
+Sample:
+![ezgif com-gif-maker](https://github.com/alighieribot/loadcell/assets/131944578/eb261fa0-bd4e-4e00-839f-43e814144ebf)
