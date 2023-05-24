@@ -95,7 +95,7 @@ void loop() {
   Serial.println(" NM");
 
   // Abre o arquivo no modo de adição
-  dataFile = SD.open("data_loadcell.txt", FILE_WRITE);
+  dataFile = SD.open("loadcell_data.txt", FILE_WRITE);
   if (dataFile) {
     // Escreve os dados da célula de carga no arquivo
     dataFile.print("Massa: ");
