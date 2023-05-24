@@ -1,0 +1,2 @@
+data format:
+dataFile.println("Massa[kg], Torque[NM]", Tempo[s])
