@@ -17,6 +17,7 @@ float calibration_factor = -4700;   // calibration factor obtained during calibr
 float valornilton;                  // comparison variable
 float units;                        // reading variable
 float massa;                        // reading variable
+unsigned long startTime = 0;        // timing variable
 
 void setup() {
   Serial.begin(9600);
@@ -31,26 +32,40 @@ void setup() {
     Serial.println("Failed to initialize SD card");
     while (1);                      // Wait for SD card insertion
   }
-
   Serial.println("SD card initialized successfully");
-
+  
+  // Check if file already exists
+  if (!SD.exists("data.txt")) {
+      return Serial.println("Concatenating initial data");
+    }
+    
   // Open the file
   dataFile = SD.open("data.txt", FILE_WRITE);
 
-  if (!dataFile) {
+    if (!dataFile) {
     Serial.println("Error opening file");
     while (!dataFile);              // Wait if there's an error
   }
   Serial.println("File opened successfully");
 
+  // Write the header to the file
+  dataFile.println("Time (s), Mass (kg), Torque (NM)");
+
+  // Close the file
   dataFile.close();
   Serial.println("File closed");
+
+  // Starting time
+  startTime = millis() / 1000; // Convert milliseconds to seconds
 }
 
 void loop() {
   // Open the file in append mode
   dataFile = SD.open("data.txt", FILE_WRITE);
   if (dataFile) {
+    unsigned long currentTime = millis(); // Obter o tempo atual em milissegundos
+    float elapsedSeconds = currentTime / 1000.0; // Converter para segundos
+
     massa = balanca.get_units();
     valornilton = massa * 9.785 * 0.237;
 
@@ -61,7 +76,9 @@ void loop() {
     Serial.print(valornilton, 3);
     Serial.println(" NM");
 
-    // Write load cell data to the file
+    // Write time, load cell data to the file
+    dataFile.print(elapsedSeconds, 3);
+    dataFile.print(", ");
     dataFile.print(balanca.get_units(), 3);
     dataFile.print(", ");
     dataFile.println(valornilton, 3);
@@ -79,6 +96,5 @@ void loop() {
       Serial.println("Scale tared");
     }
   }
-
-  delay(1000);
+  //delay(1000);
 }
