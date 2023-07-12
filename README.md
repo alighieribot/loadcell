@@ -1,5 +1,5 @@
 # Loadcell
-     measuring the force exerted by a rocket /. beyond rocket design
+      /. brd
 
   Program for load cell with HX711
   
